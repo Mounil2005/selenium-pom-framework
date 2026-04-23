@@ -59,6 +59,6 @@ class InventoryPage(BasePage):
     def logout(self):
         from selenium.webdriver.support import expected_conditions as EC
         self.click(self.BURGER_MENU)
-        # Wait for sidebar animation to finish before clicking logout
+        # Wait for sidebar animation then JS-click to avoid overlay interception
         self.wait.until(EC.visibility_of_element_located(self.LOGOUT_LINK))
-        self.click(self.LOGOUT_LINK)
+        self.js_click(self.LOGOUT_LINK)

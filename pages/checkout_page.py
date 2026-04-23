@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 
 
@@ -24,7 +25,14 @@ class CheckoutPage(BasePage):
         self.type(self.ZIP_INPUT, zip_code)
 
     def continue_to_overview(self):
-        self.click(self.CONTINUE_BUTTON)
+        self.js_click(self.CONTINUE_BUTTON)
+        # Wait for either navigation to step-two OR a validation error on step-one
+        self.wait.until(
+            EC.any_of(
+                EC.url_contains("checkout-step-two"),
+                EC.visibility_of_element_located(self.ERROR_MESSAGE),
+            )
+        )
 
     def get_error_message(self):
         return self.get_text(self.ERROR_MESSAGE)
@@ -37,7 +45,8 @@ class CheckoutPage(BasePage):
         return self.get_text(self.ITEM_TOTAL_LABEL)
 
     def finish_order(self):
-        self.click(self.FINISH_BUTTON)
+        self.js_click(self.FINISH_BUTTON)
+        self.wait.until(EC.url_contains("checkout-complete"))
 
     def get_confirmation_message(self):
         return self.get_text(self.CONFIRMATION_HEADER)

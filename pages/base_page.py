@@ -31,6 +31,11 @@ class BasePage:
     def click(self, locator):
         self.find_clickable(locator).click()
 
+    def js_click(self, locator):
+        """JavaScript click — bypasses overlay/animation issues in headless Chrome."""
+        element = self.find(locator)
+        self.driver.execute_script("arguments[0].click()", element)
+
     def type(self, locator, text):
         element = self.find(locator)
         element.clear()
