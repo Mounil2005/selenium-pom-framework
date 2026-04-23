@@ -37,13 +37,17 @@ class BasePage:
         self.driver.execute_script("arguments[0].click()", element)
 
     def type(self, locator, text):
-        from selenium.webdriver.common.keys import Keys
         element = self.find_clickable(locator)
-        element.click()
-        element.send_keys(Keys.CONTROL + 'a')
-        element.send_keys(Keys.DELETE)
-        if text:
-            element.send_keys(text)
+        # Use native value setter so React's onChange fires correctly.
+        # element.clear() and keyboard Ctrl+A both fail to update React's
+        # internal state on saucedemo's controlled inputs.
+        self.driver.execute_script(
+            "var setter = Object.getOwnPropertyDescriptor("
+            "window.HTMLInputElement.prototype, 'value').set;"
+            "setter.call(arguments[0], arguments[1]);"
+            "arguments[0].dispatchEvent(new Event('input', {bubbles:true}));",
+            element, text
+        )
 
     def get_text(self, locator):
         return self.find(locator).text
