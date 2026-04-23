@@ -29,7 +29,7 @@ class CartPage(BasePage):
 
     def proceed_to_checkout(self):
         from selenium.webdriver.support import expected_conditions as EC
-        self.click(self.CHECKOUT_BUTTON)
+        self.js_click(self.CHECKOUT_BUTTON)
         self.wait.until(EC.url_contains("checkout"))
 
     def continue_shopping(self):
