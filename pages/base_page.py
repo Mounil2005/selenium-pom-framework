@@ -37,9 +37,13 @@ class BasePage:
         self.driver.execute_script("arguments[0].click()", element)
 
     def type(self, locator, text):
-        element = self.find(locator)
-        element.clear()
-        element.send_keys(text)
+        from selenium.webdriver.common.keys import Keys
+        element = self.find_clickable(locator)
+        element.click()
+        element.send_keys(Keys.CONTROL + 'a')
+        element.send_keys(Keys.DELETE)
+        if text:
+            element.send_keys(text)
 
     def get_text(self, locator):
         return self.find(locator).text

@@ -25,7 +25,7 @@ class CartPage(BasePage):
             return 0
 
     def remove_item(self, item_data_test):
-        self.click(self._remove_btn(item_data_test))
+        self.js_click(self._remove_btn(item_data_test))
 
     def proceed_to_checkout(self):
         from selenium.webdriver.support import expected_conditions as EC

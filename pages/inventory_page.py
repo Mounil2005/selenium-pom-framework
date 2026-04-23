@@ -29,12 +29,12 @@ class InventoryPage(BasePage):
         e.g. 'sauce-labs-backpack'
         """
         from selenium.webdriver.support import expected_conditions as EC
-        self.click(self._add_to_cart_btn(item_data_test))
+        self.js_click(self._add_to_cart_btn(item_data_test))
         # Wait for the button to flip to "Remove" before proceeding
         self.wait.until(EC.presence_of_element_located(self._remove_btn(item_data_test)))
 
     def remove_item_from_inventory(self, item_data_test):
-        self.click(self._remove_btn(item_data_test))
+        self.js_click(self._remove_btn(item_data_test))
 
     def get_cart_count(self):
         if not self.is_visible(self.CART_BADGE):
@@ -43,7 +43,7 @@ class InventoryPage(BasePage):
 
     def go_to_cart(self):
         from selenium.webdriver.support import expected_conditions as EC
-        self.click(self.CART_ICON)
+        self.js_click(self.CART_ICON)
         self.wait.until(EC.url_contains("cart"))
 
     def sort_products(self, option):
