@@ -28,7 +28,11 @@ class CartPage(BasePage):
         self.click(self._remove_btn(item_data_test))
 
     def proceed_to_checkout(self):
+        from selenium.webdriver.support import expected_conditions as EC
         self.click(self.CHECKOUT_BUTTON)
+        self.wait.until(EC.url_contains("checkout"))
 
     def continue_shopping(self):
+        from selenium.webdriver.support import expected_conditions as EC
         self.click(self.CONTINUE_SHOPPING)
+        self.wait.until(EC.url_contains("inventory"))

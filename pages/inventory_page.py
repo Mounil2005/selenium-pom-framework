@@ -28,7 +28,10 @@ class InventoryPage(BasePage):
         item_data_test is the slug used in data-test attributes.
         e.g. 'sauce-labs-backpack'
         """
+        from selenium.webdriver.support import expected_conditions as EC
         self.click(self._add_to_cart_btn(item_data_test))
+        # Wait for the button to flip to "Remove" before proceeding
+        self.wait.until(EC.presence_of_element_located(self._remove_btn(item_data_test)))
 
     def remove_item_from_inventory(self, item_data_test):
         self.click(self._remove_btn(item_data_test))
@@ -39,7 +42,9 @@ class InventoryPage(BasePage):
         return int(self.get_text(self.CART_BADGE))
 
     def go_to_cart(self):
+        from selenium.webdriver.support import expected_conditions as EC
         self.click(self.CART_ICON)
+        self.wait.until(EC.url_contains("cart"))
 
     def sort_products(self, option):
         """
@@ -52,5 +57,8 @@ class InventoryPage(BasePage):
         return [el.text for el in elements]
 
     def logout(self):
+        from selenium.webdriver.support import expected_conditions as EC
         self.click(self.BURGER_MENU)
+        # Wait for sidebar animation to finish before clicking logout
+        self.wait.until(EC.visibility_of_element_located(self.LOGOUT_LINK))
         self.click(self.LOGOUT_LINK)

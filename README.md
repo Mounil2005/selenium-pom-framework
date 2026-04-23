@@ -1,6 +1,6 @@
 # Selenium Automated Test Suite
 
-![Selenium Tests](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/actions/workflows/tests.yml/badge.svg)
+![Selenium Tests](https://github.com/Mounil2005/selenium-pom-framework/actions/workflows/tests.yml/badge.svg)
 
 End-to-end UI test suite for [SauceDemo](https://www.saucedemo.com) built with Python, Selenium 4, and pytest. Demonstrates the **Page Object Model (POM)** design pattern, explicit waits, headless execution, and automated HTML reporting.
 
